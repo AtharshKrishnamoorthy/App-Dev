@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Task Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar for search and filtering -->
+        <div class="sidebar">
+            <h2>Task Filters</h2>
+            <input type="text" id="searchInput" placeholder="Search tasks..." onkeyup="searchTasks()">
+            <div class="help-icon">
+                <span>Search tasks by name or status.</span>
+            </div>
+            <div class="filter-section">
+                <h3>Status Filters</h3>
+                <button onclick="filterTasks('all')">All</button>
+                <button onclick="filterTasks('pending')">Pending</button>
+                <button onclick="filterTasks('started')">Started</button>
+                <button onclick="filterTasks('completed')">Completed</button>
+            </div>
+            <div class="filter-section">
+                <h3>Priority Filters</h3>
+                <button onclick="filterByPriority('all')">All</button>
+                <button onclick="filterByPriority('low')">Low</button>
+                <button onclick="filterByPriority('medium')">Medium</button>
+                <button onclick="filterByPriority('high')">High</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <header>
+                <h1>Task Manager App</h1>
+                <button id="darkModeToggle">Dark Mode</button>
+            </header>
+
+            <div class="task-input-container">
+                <input type="text" id="taskInput" placeholder="Add a new task..." />
+                <input type="date" id="taskDeadline" placeholder="Deadline">
+                <select id="taskPriority">
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                </select>
+                <div class="help-icon">
+                    <span>Select the priority of the task.</span>
+                </div>
+                <button onclick="addTask()">Add Task</button>
+            </div>
+
+            <div class="task-list-container">
+                <ul id="taskList"></ul>
+            </div>
+            
+            <!-- Interactive Charts for Statistics -->
+            <div id="stats">
+                <h3>Task Statistics</h3>
+                <canvas id="taskPieChart"></canvas>
+                <canvas id="taskBarChart"></canvas>
+                <canvas id="taskLineChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

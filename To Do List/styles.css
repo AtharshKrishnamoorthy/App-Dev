@@ -1,0 +1,164 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Font Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    height: 100%;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.sidebar input, .sidebar button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Main Content Styling */
+.main-content {
+    margin-left: 280px;
+    padding: 40px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    color: #707a82;
+}
+
+.task-input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+input, select, button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+}
+
+.task-list-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Task Colors based on Status */
+li.pending {
+    background-color: #ffefc7;
+}
+
+li.started {
+    background-color: #c7e1ff;
+}
+
+li.completed {
+    background-color: #d2f4e7;
+}
+
+button.delete-task {
+    background-color: #FF5252;
+    padding: 5px 10px;
+}
+
+/* Statistics Charts Styling */
+#stats {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the child elements horizontally */
+}
+
+#stats canvas {
+    width: 90% !important; /* Adjust width as needed */
+    height: 400px !important; /* Adjust height as needed */
+    margin-bottom: 20px;
+    max-width: 500px; /* Limit the maximum width */
+    max-height: 400px; /* Limit the maximum height */
+}
+
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #f1f1f1;
+}
+
+.dark-mode input, .dark-mode select, .dark-mode button {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-mode .sidebar {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Help Icons */
+.help-icon {
+    display: inline-block;
+    margin-left: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.help-icon span {
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    z-index: 1;
+    width: 200px;
+}
+
+.help-icon:hover span {
+    visibility: visible;
+    opacity: 0.9;
+}
