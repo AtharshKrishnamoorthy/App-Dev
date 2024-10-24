@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Drug Information Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch">
+            <input type="checkbox" id="darkModeToggle">
+            <span class="slider round"></span>
+        </label>
+        <span class="theme-label">Dark Mode</span>
+    </div>
+
+    <div class="molecule-background"></div>
+
+    <div class="container">
+        <nav class="tab-navigation">
+            <button class="tab-button active" data-tab="search">Drug Search</button>
+            <button class="tab-button" data-tab="interaction">Interaction Checker</button>
+            <button class="tab-button" data-tab="favorites">My Favorites</button>
+        </nav>
+
+        <!-- Drug Search Tab -->
+        <div class="tab-content active" id="search-tab">
+            <div class="search-section">
+                <h1>Drug Information Dashboard</h1>
+                <div class="search-box">
+                    <div class="input-wrapper">
+                        <input type="text" id="searchInput" placeholder="Enter drug name...">
+                    </div>
+                    <button onclick="searchDrug()">
+                        <span class="button-content">
+                            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            Search
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Searching for drug information...</p>
+            </div>
+
+            <div class="error" id="error"></div>
+            <div class="results-section" id="results"></div>
+        </div>
+
+        <!-- Interaction Checker Tab -->
+        <div class="tab-content" id="interaction-tab">
+            <div class="search-section">
+                <h1>Drug Interaction Checker</h1>
+                <div class="interaction-search">
+                    <div class="input-wrapper">
+                        <input type="text" id="drug1Input" placeholder="Enter first drug name...">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="text" id="drug2Input" placeholder="Enter second drug name...">
+                    </div>
+                    <button onclick="checkInteractions()">
+                        <span class="button-content">
+                            <svg class="compare-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                            </svg>
+                            Check Interactions
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="loading" id="interaction-loading">
+                <div class="spinner"></div>
+                <p>Checking drug interactions...</p>
+            </div>
+            <div class="error" id="interaction-error"></div>
+            <div class="interaction-results" id="interaction-results"></div>
+        </div>
+
+        <!-- Favorites Tab -->
+        <div class="tab-content" id="favorites-tab">
+            <div class="search-section">
+                <h1>My Favorite Drugs</h1>
+                <p class="favorites-info">Quick access to your saved medications</p>
+            </div>
+            <div class="favorites-list" id="favorites-list"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
