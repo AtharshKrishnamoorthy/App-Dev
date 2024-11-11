@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #00b4db, #0083b0);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #0083b0;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: #0083b0;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #006d94;
+        }
+
+        #result {
+            display: none;
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .formatted-data, .json-data {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .weather-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .weather-item {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .weather-item strong {
+            color: #0083b0;
+        }
+
+        .error {
+            color: #dc3545;
+            text-align: center;
+            padding: 1rem;
+            background: #ffe6e6;
+            border-radius: 8px;
+            display: none;
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Enter city name" />
+            <button onclick="getWeather()">Search</button>
+        </div>
+        <div id="error" class="error"></div>
+        <div id="result">
+            <div class="results-container">
+                <div class="formatted-data">
+                    <h2>Formatted Weather Data</h2>
+                    <div class="weather-info">
+                        <div class="weather-item">
+                            <strong>Location:</strong> <span id="cityName"></span>
+                        </div>
+                        <div class="weather-item">
+                            <strong>Temperature:</strong> <span id="temp"></span>°C
+                        </div>
+                        <div class="weather-item">
+                            <strong>Feels Like:</strong> <span id="feelsLike"></span>°C
+                        </div>
+                        <div class="weather-item">
+                            <strong>Description:</strong> <span id="description"></span>
+                        </div>
+                        <div class="weather-item">
+                            <strong>Humidity:</strong> <span id="humidity"></span>%
+                        </div>
+                        <div class="weather-item">
+                            <strong>Wind Speed:</strong> <span id="windSpeed"></span> m/s
+                        </div>
+                    </div>
+                </div>
+                <div class="json-data">
+                    <h2>Raw JSON Data</h2>
+                    <pre id="jsonData"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function getWeather() {
+            const cityInput = document.getElementById('cityInput');
+            const result = document.getElementById('result');
+            const error = document.getElementById('error');
+            
+            try {
+                const response = await fetch(`/api/weather/${cityInput.value}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Update formatted display
+                    document.getElementById('cityName').textContent = `${data.city}, ${data.country}`;
+                    document.getElementById('temp').textContent = data.temperature.toFixed(1);
+                    document.getElementById('feelsLike').textContent = data.feels_like.toFixed(1);
+                    document.getElementById('description').textContent = data.description;
+                    document.getElementById('humidity').textContent = data.humidity;
+                    document.getElementById('windSpeed').textContent = data.windSpeed;
+
+                    // Update JSON display
+                    document.getElementById('jsonData').textContent = JSON.stringify(data, null, 2);
+
+                    result.style.display = 'block';
+                    error.style.display = 'none';
+                } else {
+                    error.textContent = data.error || 'Failed to fetch weather data';
+                    error.style.display = 'block';
+                    result.style.display = 'none';
+                }
+            } catch (err) {
+                error.textContent = 'Error connecting to the server';
+                error.style.display = 'block';
+                result.style.display = 'none';
+            }
+        }
+
+        // Allow Enter key to trigger search
+        document.getElementById('cityInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getWeather();
+            }
+        });
+    </script>
+</body>
+</html>
